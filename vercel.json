@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/FinTrack/index.html" },
+    { "source": "/:path*", "destination": "/FinTrack/:path*" }
+  ]
+}
