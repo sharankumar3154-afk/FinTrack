@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monthly Budget - FinTrack Personal Finance</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top shadow-sm py-2">
+    <div class="container-fluid">
+      
+      <button class="btn btn-outline-secondary d-md-none me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar" aria-controls="mobileSidebar">
+        <i class="bi bi-list fs-5"></i>
+      </button>
+
+      <a class="navbar-brand d-flex align-items-center fw-bold text-primary gap-2" href="dashboard.html">
+        <div class="bg-primary text-white rounded-2 px-2 py-1 d-inline-flex align-items-center">
+          <i class="bi bi-wallet2 fs-5"></i>
+        </div>
+        <span>FinTrack</span>
+      </a>
+
+      <div class="d-flex align-items-center gap-3 ms-auto">
+        <div class="dropdown">
+          <button class="btn btn-light rounded-circle position-relative p-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+            <i class="bi bi-bell fs-5 text-secondary"></i>
+            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3 p-2" style="width: 280px;">
+            <li><h6 class="dropdown-header fw-bold text-uppercase fs-7">Notifications</h6></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item rounded-2 py-2 d-flex gap-2 align-items-start" href="budget.html">
+                <i class="bi bi-exclamation-triangle-fill text-warning fs-5"></i>
+                <div>
+                  <div class="fw-semibold small">Budget Warning</div>
+                  <div class="text-muted extra-small">Shopping budget reached 85%</div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle gap-2 text-dark" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="avatar-circle bg-primary-subtle text-primary border border-primary-subtle fw-bold">
+              RS
+            </div>
+            <span class="d-none d-lg-inline fw-semibold small user-display-name">Rahul Sharma</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3 p-2">
+            <li>
+              <div class="px-3 py-2 border-bottom mb-2">
+                <div class="fw-semibold user-display-name">Rahul Sharma</div>
+                <div class="text-muted extra-small user-display-email">rahul.sharma@example.com</div>
+              </div>
+            </li>
+            <li><a class="dropdown-item rounded-2" href="profile.html"><i class="bi bi-person me-2"></i>My Profile</a></li>
+            <li><a class="dropdown-item rounded-2" href="profile.html#settings"><i class="bi bi-gear me-2"></i>Account Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item rounded-2 text-danger" href="#" onclick="handleLogout(event)"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Container for Sidebar + Content -->
+  <div class="container-fluid">
+    <div class="row">
+
+      <!-- Desktop Sidebar -->
+      <aside class="col-md-3 col-lg-2 sidebar bg-white d-none d-md-block">
+        <div class="py-3 px-2">
+          <ul class="nav flex-column gap-1">
+            <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="transactions.html"><i class="bi bi-receipt"></i>Transactions</a></li>
+            <li class="nav-item"><a class="nav-link" href="add-transaction.html"><i class="bi bi-plus-circle"></i>Add Transaction</a></li>
+            <li class="nav-item"><a class="nav-link active" href="budget.html"><i class="bi bi-pie-chart"></i>Budget</a></li>
+            <li class="nav-item"><a class="nav-link" href="reports.html"><i class="bi bi-bar-chart-line"></i>Reports</a></li>
+            <li class="nav-item"><a class="nav-link" href="profile.html"><i class="bi bi-person"></i>Profile</a></li>
+          </ul>
+          <hr class="my-3 text-secondary opacity-25">
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link text-danger" href="#" onclick="handleLogout(event)"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Mobile Offcanvas Sidebar -->
+      <div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="mobileSidebar">
+        <div class="offcanvas-header border-bottom">
+          <h5 class="offcanvas-title d-flex align-items-center gap-2 text-primary fw-bold">
+            <i class="bi bi-wallet2"></i>FinTrack Navigation
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="nav flex-column gap-1">
+            <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="transactions.html"><i class="bi bi-receipt me-2"></i>Transactions</a></li>
+            <li class="nav-item"><a class="nav-link" href="add-transaction.html"><i class="bi bi-plus-circle me-2"></i>Add Transaction</a></li>
+            <li class="nav-item"><a class="nav-link active" href="budget.html"><i class="bi bi-pie-chart me-2"></i>Budget</a></li>
+            <li class="nav-item"><a class="nav-link" href="reports.html"><i class="bi bi-bar-chart-line me-2"></i>Reports</a></li>
+            <li class="nav-item"><a class="nav-link" href="profile.html"><i class="bi bi-person me-2"></i>Profile</a></li>
+            <li class="nav-item mt-3"><a class="nav-link text-danger" href="#" onclick="handleLogout(event)"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <main class="col-md-9 ms-sm-auto col-lg-10 main-content px-md-4 mb-5">
+        
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="breadcrumb" class="mt-2">
+          <ol class="breadcrumb mb-2">
+            <li class="breadcrumb-item"><a href="dashboard.html" class="text-decoration-none">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Monthly Budget</li>
+          </ol>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 pb-3 mb-4 border-bottom">
+          <div>
+            <h1 class="h3 fw-bold mb-1">Monthly Budget</h1>
+            <p class="text-muted small mb-0">Track and manage category spending limits for September 2026.</p>
+          </div>
+          <div>
+            <button class="btn btn-primary d-inline-flex align-items-center gap-2 rounded-3" data-bs-toggle="modal" data-bs-target="#addBudgetModal">
+              <i class="bi bi-plus-circle-fill"></i>
+              <span>Set Budget Goal</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Budget Danger Alert Banner -->
+        <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-3 mb-4" role="alert">
+          <div class="d-flex align-items-center gap-3">
+            <i class="bi bi-exclamation-triangle-fill fs-3 text-danger"></i>
+            <div>
+              <strong class="d-block">Over-Budget Danger Alert!</strong>
+              <span class="small">Utilities category is at <strong>97%</strong> (₹5,800 / ₹6,000) and Shopping is at <strong>85%</strong> (₹6,800 / ₹8,000). Consider controlling discretionary spending for the remaining days.</span>
+            </div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <!-- Overall Budget Status Summary Card -->
+        <div class="card border-0 shadow-sm rounded-3 mb-4">
+          <div class="card-body p-4">
+            <div class="row align-items-center g-3 mb-3">
+              <div class="col-12 col-md-6">
+                <h5 class="fw-bold mb-1">Overall Monthly Budget</h5>
+                <p class="text-muted small mb-0">Total spending across all 6 active category limits.</p>
+              </div>
+              <div class="col-12 col-md-6 text-md-end">
+                <span class="h4 fw-bold text-dark mb-0">Spent ₹25,800</span>
+                <span class="text-muted"> / ₹38,000</span>
+                <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle ms-2">67.8% Spent</span>
+              </div>
+            </div>
+            
+            <!-- Progress Bar Stacked -->
+            <div class="progress rounded-pill mb-2" style="height: 16px;">
+              <div class="progress-bar bg-primary" role="progressbar" style="width: 26%" title="Food: 26%"></div>
+              <div class="progress-bar bg-info" role="progressbar" style="width: 11%" title="Transport: 11%"></div>
+              <div class="progress-bar bg-warning" role="progressbar" style="width: 24%" title="Shopping: 24%"></div>
+              <div class="progress-bar bg-success" role="progressbar" style="width: 5%" title="Entertainment: 5%"></div>
+              <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" title="Utilities: 20%"></div>
+            </div>
+
+            <div class="d-flex justify-content-between text-muted extra-small">
+              <span>₹0</span>
+              <span>₹19,000 (50%)</span>
+              <span>Target Limit: ₹38,000</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Budget Cards Grid -->
+        <div class="row g-4">
+          
+          <!-- Category 1: Food -->
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm rounded-3 h-100 card-hover">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="bg-primary-subtle text-primary p-2 rounded-3">
+                      <i class="bi bi-cart-fill fs-5"></i>
+                    </div>
+                    <div>
+                      <h6 class="fw-bold mb-0">Food & Dining</h6>
+                      <span class="text-muted extra-small">Essential Household</span>
+                    </div>
+                  </div>
+                  <span class="badge bg-primary-subtle text-primary border border-primary-subtle">75%</span>
+                </div>
+
+                <div class="mb-3">
+                  <div class="d-flex justify-content-between small mb-1">
+                    <span class="text-muted">Spent: <strong class="text-dark">₹7,500</strong></span>
+                    <span class="text-muted">Budget: <strong class="text-dark">₹10,000</strong></span>
+                  </div>
+                  <div class="progress rounded-pill" style="height: 10px;">
+                    <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                  <span class="text-muted extra-small">Remaining Balance</span>
+                  <span class="fw-bold text-success">₹2,500</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 2: Transport -->
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm rounded-3 h-100 card-hover">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="bg-info-subtle text-info p-2 rounded-3">
+                      <i class="bi bi-fuel-pump-fill fs-5"></i>
+                    </div>
+                    <div>
+                      <h6 class="fw-bold mb-0">Transport</h6>
+                      <span class="text-muted extra-small">Fuel & Commute</span>
+                    </div>
+                  </div>
+                  <span class="badge bg-info-subtle text-info border border-info-subtle">64%</span>
+                </div>
+
+                <div class="mb-3">
+                  <div class="d-flex justify-content-between small mb-1">
+                    <span class="text-muted">Spent: <strong class="text-dark">₹3,200</strong></span>
+                    <span class="text-muted">Budget: <strong class="text-dark">₹5,000</strong></span>
+                  </div>
+                  <div class="progress rounded-pill" style="height: 10px;">
+                    <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: 64%" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                  <span class="text-muted extra-small">Remaining Balance</span>
+                  <span class="fw-bold text-success">₹1,800</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 3: Shopping -->
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm rounded-3 h-100 card-hover border-start border-warning border-4">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="bg-warning-subtle text-warning p-2 rounded-3">
+                      <i class="bi bi-bag-check-fill fs-5"></i>
+                    </div>
+                    <div>
+                      <h6 class="fw-bold mb-0">Shopping</h6>
+                      <span class="text-muted extra-small">Apparel & Lifestyle</span>
+                    </div>
+                  </div>
+                  <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">85%</span>
+                </div>
+
+                <div class="mb-3">
+                  <div class="d-flex justify-content-between small mb-1">
+                    <span class="text-muted">Spent: <strong class="text-dark">₹6,800</strong></span>
+                    <span class="text-muted">Budget: <strong class="text-dark">₹8,000</strong></span>
+                  </div>
+                  <div class="progress rounded-pill" style="height: 10px;">
+                    <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                  <span class="text-muted extra-small">Remaining Balance</span>
+                  <span class="fw-bold text-warning-emphasis">₹1,200</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 4: Entertainment -->
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm rounded-3 h-100 card-hover">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="bg-success-subtle text-success p-2 rounded-3">
+                      <i class="bi bi-film fs-5"></i>
+                    </div>
+                    <div>
+                      <h6 class="fw-bold mb-0">Entertainment</h6>
+                      <span class="text-muted extra-small">Movies & Outings</span>
+                    </div>
+                  </div>
+                  <span class="badge bg-success-subtle text-success-emphasis border border-success-subtle">38%</span>
+                </div>
+
+                <div class="mb-3">
+                  <div class="d-flex justify-content-between small mb-1">
+                    <span class="text-muted">Spent: <strong class="text-dark">₹1,500</strong></span>
+                    <span class="text-muted">Budget: <strong class="text-dark">₹4,000</strong></span>
+                  </div>
+                  <div class="progress rounded-pill" style="height: 10px;">
+                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 38%" aria-valuenow="38" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                  <span class="text-muted extra-small">Remaining Balance</span>
+                  <span class="fw-bold text-success">₹2,500</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 5: Utilities -->
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm rounded-3 h-100 card-hover border-start border-danger border-4">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="bg-danger-subtle text-danger p-2 rounded-3">
+                      <i class="bi bi-lightning-charge-fill fs-5"></i>
+                    </div>
+                    <div>
+                      <h6 class="fw-bold mb-0">Utilities</h6>
+                      <span class="text-muted extra-small">Electricity & Water</span>
+                    </div>
+                  </div>
+                  <span class="badge bg-danger-subtle text-danger-emphasis border border-danger-subtle">97%</span>
+                </div>
+
+                <div class="mb-3">
+                  <div class="d-flex justify-content-between small mb-1">
+                    <span class="text-muted">Spent: <strong class="text-dark">₹5,800</strong></span>
+                    <span class="text-muted">Budget: <strong class="text-dark">₹6,000</strong></span>
+                  </div>
+                  <div class="progress rounded-pill" style="height: 10px;">
+                    <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" style="width: 97%" aria-valuenow="97" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                  <span class="text-muted extra-small">Remaining Balance</span>
+                  <span class="fw-bold text-danger">₹200</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 6: Healthcare -->
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm rounded-3 h-100 card-hover">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="bg-primary-subtle text-primary p-2 rounded-3">
+                      <i class="bi bi-heart-pulse-fill fs-5"></i>
+                    </div>
+                    <div>
+                      <h6 class="fw-bold mb-0">Healthcare</h6>
+                      <span class="text-muted extra-small">Pharmacy & Medical</span>
+                    </div>
+                  </div>
+                  <span class="badge bg-success-subtle text-success-emphasis border border-success-subtle">20%</span>
+                </div>
+
+                <div class="mb-3">
+                  <div class="d-flex justify-content-between small mb-1">
+                    <span class="text-muted">Spent: <strong class="text-dark">₹1,000</strong></span>
+                    <span class="text-muted">Budget: <strong class="text-dark">₹5,000</strong></span>
+                  </div>
+                  <div class="progress rounded-pill" style="height: 10px;">
+                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                  <span class="text-muted extra-small">Remaining Balance</span>
+                  <span class="fw-bold text-success">₹4,000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal: Set / Update Category Budget -->
+  <div class="modal fade" id="addBudgetModal" tabindex="-1" aria-labelledby="addBudgetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow rounded-4">
+        <div class="modal-header border-bottom">
+          <h5 class="modal-title fw-bold" id="addBudgetModalLabel">
+            <i class="bi bi-pie-chart text-primary me-2"></i>Set Monthly Budget Goal
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="addBudgetForm" class="needs-validation" novalidate>
+            <div class="mb-3">
+              <label for="budgetCategorySelect" class="form-label small text-secondary">Select Category</label>
+              <select class="form-select" id="budgetCategorySelect" required>
+                <option value="" selected disabled>Choose Category...</option>
+                <option value="Food">Food & Dining</option>
+                <option value="Transport">Transport</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Healthcare">Healthcare</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="budgetAmountInput" class="form-label small text-secondary">Monthly Target Limit (₹)</label>
+              <div class="input-group">
+                <span class="input-group-text">₹</span>
+                <input type="number" min="500" step="500" class="form-control" id="budgetAmountInput" placeholder="10000" required>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end gap-2 mt-4">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary fw-semibold">Save Budget Goal</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS Bundle CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- App JS -->
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
